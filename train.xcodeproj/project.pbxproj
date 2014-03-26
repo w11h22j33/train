@@ -22,6 +22,7 @@
 		AE4F17FA18E3042400A7EEC1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE4F17F818E3042400A7EEC1 /* InfoPlist.strings */; };
 		AE4F17FC18E3042400A7EEC1 /* trainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4F17FB18E3042400A7EEC1 /* trainTests.m */; };
 		AE4F180718E38A3600A7EEC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE4F180518E38A3600A7EEC1 /* Main.storyboard */; };
+		AE4F180A18E396B300A7EEC1 /* SharedInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4F180918E396B300A7EEC1 /* SharedInstance.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		AE4F17F918E3042400A7EEC1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE4F17FB18E3042400A7EEC1 /* trainTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = trainTests.m; sourceTree = "<group>"; };
 		AE4F180618E38A3600A7EEC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AE4F180818E396B300A7EEC1 /* SharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedInstance.h; sourceTree = "<group>"; };
+		AE4F180918E396B300A7EEC1 /* SharedInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedInstance.m; sourceTree = "<group>"; };
 		F30EEB8EA5DF48C7BACC160D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +128,8 @@
 				AE4F17E618E3042400A7EEC1 /* ViewController.m */,
 				AE4F17E818E3042400A7EEC1 /* Images.xcassets */,
 				AE4F17D718E3042400A7EEC1 /* Supporting Files */,
+				AE4F180818E396B300A7EEC1 /* SharedInstance.h */,
+				AE4F180918E396B300A7EEC1 /* SharedInstance.m */,
 			);
 			path = train;
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 				AE4F17E718E3042400A7EEC1 /* ViewController.m in Sources */,
 				AE4F17E118E3042400A7EEC1 /* AppDelegate.m in Sources */,
 				AE4F17DD18E3042400A7EEC1 /* main.m in Sources */,
+				AE4F180A18E396B300A7EEC1 /* SharedInstance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
