@@ -10,6 +10,19 @@
 
 @interface SharedInstance : NSObject
 
+@property (nonatomic,strong) NSMutableDictionary* cookies;
+@property (nonatomic,strong) NSMutableDictionary* stations;
+
 + (SharedInstance*)sharedInstance;
+
++ (void)addCookie:(NSString*)value forKey:(NSString*)key;
+
++ (void)addCookieFromInitResponse:(NSString*)responseString;
+
++ (void)setLoginFlag:(BOOL)flag;
+
++ (BOOL)isLogin;
+
++ (void)initStations:(NSString*)string;
 
 @end

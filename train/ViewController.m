@@ -7,28 +7,43 @@
 //
 
 #import "ViewController.h"
+#import "SharedInstance.h"
+#import <UIImageView+AFNetworking.h>
+#import "AFUtil.h"
+
 
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *tfAccount;
 @property (weak, nonatomic) IBOutlet UITextField *tfPassword;
+@property (weak, nonatomic) IBOutlet UITextField *tfVerCode;
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageVerCode;
+@property (strong,nonatomic) SharedInstance *sharedInstance;
+
 
 - (IBAction)actionButtonClicked:(id)sender;
+- (IBAction)actionRefreshVerCode:(id)sender;
 
 - (void)doInit;
 - (void)getVerCode;
+- (void)doLogin:(NSString*)verCode account:(NSString*)account password:(NSString*)password;
 
 @end
 
 @implementation ViewController
 
-@synthesize tfAccount,tfPassword,imageVerCode;
+@synthesize tfAccount,tfPassword,imageVerCode,sharedInstance,tfVerCode;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    self.navigationItem.title = @"登录";
+    
+    [self doInit];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,36 +54,126 @@
 
 - (IBAction)actionButtonClicked:(id)sender {
     
+    [self.view endEditing:YES];
+    
+    NSString* verCode = tfVerCode.text;
     NSString* account = tfAccount.text;
     NSString* password = tfPassword.text;
     
-    [self doInit];
+    [self doLogin:verCode account:account password:password];
     
     
 }
 
+- (IBAction)actionRefreshVerCode:(id)sender {
+    
+    [self getVerCode];
+    
+}
+
+
+
+//初始化获取session
 - (void)doInit{
     
-    NSString* urlString = @"https://kyfw.12306.cn/otn/";
+    NSString* urlString = @"https://kyfw.12306.cn/otn/login/init";
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    manager.securityPolicy.allowInvalidCertificates = YES;
-    
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+    [AFUtil doGet:urlString parameters:nil responseSerializer:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Success--->");
+        
+        NSDictionary *headers = operation.response.allHeaderFields;
+        
+        NSLog(@"Headers:%@",headers);
+        
+        [SharedInstance addCookieFromInitResponse:[headers objectForKey:@"Set-Cookie"]];
+        
+        [self getVerCode];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Headers:%@",operation.response.allHeaderFields);
-        //        NSLog(@"responseString:%@",operation.responseString);
-        NSLog(@"StatusCode:%d",operation.response.statusCode);
         NSLog(@"Error: %@", error);
     }];
     
 }
 
+//获取图形验证码
 - (void)getVerCode{
     
+    NSLog(@"getVerCode -->");
     
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    
+    NSString* JSessionid = [[[SharedInstance sharedInstance] cookies] objectForKey:@"JSESSIONID"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/passcodeNew/getPassCodeNew;jsessionid=%@?module=login&rand=sjrand",JSessionid];
+    
+    [AFUtil doGet:urlString parameters:nil responseSerializer:[AFImageResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Success--->");
+        
+        NSDictionary *headers = operation.response.allHeaderFields;
+        
+        NSLog(@"Headers:%@",headers);
+        
+        [imageVerCode setImage:responseObject];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+- (void)doLogin:(NSString *)verCode account:(NSString *)account password:(NSString *)password{
+    
+    NSLog(@"doLogin -->");
+    
+    NSString* urlString = @"https://kyfw.12306.cn/otn/login/loginAysnSuggest";
+    
+    NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithCapacity:4];
+    
+    [parameters setObject:verCode forKey:@"randCode"];
+    [parameters setObject:account forKey:@"loginUserDTO.user_name"];
+    [parameters setObject:password forKey:@"userDTO.password"];
+    
+    [AFUtil doPost:urlString parameters:parameters responseSerializer:[AFJSONResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        NSLog(@"doLogin Success--->");
+        
+        NSDictionary *headers = operation.response.allHeaderFields;
+        
+        NSLog(@"Headers:%@",headers);
+        
+        NSLog(@"responseString:%@",operation.responseString);
+        
+        NSLog(@"responseObject:%@",responseObject);
+        
+        NSString* data = [NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"data"] objectForKey:@"loginCheck"]];
+        
+        NSLog(@"data:%@",data);
+        
+        NSString* messages = @"";
+        
+        @try {
+            messages = [NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"messages"] objectAtIndex:0]];
+        }
+        @catch (NSException *exception) {}
+        @finally {}
+        
+        [SharedInstance setLoginFlag:YES];
+        
+        messages = [SharedInstance isLogin]?@"登录成功":messages;
+        
+        NSLog(@"messages:%@",messages);
+        
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"登录结果" message:messages delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
+        [alert show];
+        
+        if ([SharedInstance isLogin]) {
+#warning 查询车站信息
+        }else{
+            [self getVerCode];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [self doInit];
+    }];
     
 }
 
