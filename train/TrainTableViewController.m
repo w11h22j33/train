@@ -179,7 +179,6 @@
     cell.textLabel.text = [train description];
     
     
-    
     return cell;
 }
 
@@ -187,15 +186,15 @@
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    NSString* stationName = cell.textLabel.text;
-    
-    Station *station = [[SharedInstance sharedInstance].stations objectForKey:stationName];
-    
-    NSLog(@"%@",station);
-    
     [cell setSelected:NO];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    DetailTableViewController* detail = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    detail.train = [trains objectAtIndex:indexPath.row];
+    
+    NSLog(@"%@",detail.train);
+    
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 /*

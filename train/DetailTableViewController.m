@@ -9,16 +9,17 @@
 #import "DetailTableViewController.h"
 #import "AFUtil.h"
 #import "SharedInstance.h"
+#import "TrainStationInfo.h"
 
 @interface DetailTableViewController ()
 
-@property (nonatomic,strong) NSMutableArray *trains;
+@property (nonatomic,strong) NSMutableArray *trainStations;
 
 @end
 
 @implementation DetailTableViewController
 
-@synthesize trains;
+@synthesize train,trainStations;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,7 +34,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"车次时刻表";
+    self.navigationItem.title = @"时刻表";
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -71,33 +72,30 @@
     NSString *from_station = [SharedInstance sharedInstance].beginStation.sNo;
     NSString *to_station = [SharedInstance sharedInstance].endStation.sNo;
     
+    NSString *train_no = self.train.t_train_no;
     train_date = @"2014-03-29";
     from_station = @"VNP";
     to_station = @"TYV";
     
     
-    NSString* urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=%@&leftTicketDTO.from_station=%@&leftTicketDTO.to_station=%@&purpose_codes=ADULT",train_date,from_station,to_station];
+    NSString* urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=%@&from_station_telecode=%@&to_station_telecode=%@&depart_date=%@",train_no,from_station,to_station,train_date];
     
     /**
      
+     {"validateMessagesShowId":"_validatorMessage","status":true,"httpstatus":200,
      
-     {"data":[{"queryLeftNewDTO":{"train_no":"01000K108402","station_train_code":"K1081","start_station_telecode":"HBB","start_station_name":"哈尔滨","end_station_tele c
-     ode":"TYV","end_station_name":"太原","from_station_telecode":"BJP","from_station_name":"北京","to_station_telecode":"TYV","to_station_name":"太原","start_time":"0 2
-     :33","arrive_time":"10:49","day_difference":"0","train_class_name":"","lishi":"08:16","canWebBuy":"IS_TIME_NOT_BUY","lishiValue":"496","yp_info":"1009103191402530 0
-     01110091001093016400073","control_train_day":"20201231","start_train_date":"20140327","seat_feature":"W3431333","yp_ex":"10401030","train_seat_feature":"3","seat_ t
-     ypes":"1413","location_code":"B2","from_station_no":"18","to_station_no":"25","control_day":19,"sale_time":"1000","is_support_card":"0","gg_num":"--","gr_num":"-- "
-     ,"qt_num":"--","rw_num":"11","rz_num":"--","tz_num":"--","wz_num":"有","yb_num":"--","yw_num":"有","yz_num":"有","ze_num":"--","zy_num":"--","swz_num":"--"},"secr e
-     tStr":"","buttonTextInfo":"23:00-07:00系统维护时间"},
+     "data":{
      
+     "data":[
      
-     {"queryLeftNewDTO":{"train_no":"24000D200109","station_train_code":"D2001","start_station_telecode":"BXP","st a
-     rt_station_name":"北京西","end_station_telecode":"TYV","end_station_name":"太原","from_station_telecode":"BXP","from_station_name":"北京西","to_station_telecode": "
-     TYV","to_station_name":"太原","start_time":"07:10","arrive_time":"10:31","day_difference":"0","train_class_name":"动车","lishi":"03:21","canWebBuy":"IS_TIME_NOT_B U
-     Y","lishiValue":"201","yp_info":"O015200455M021700146O015203143","control_train_day":"20201231","start_train_date":"20140328","seat_feature":"O3M3W3","yp_ex":"O0M 0
-     O0","train_seat_feature":"3","seat_types":"OMO","location_code":"P2","from_station_no":"01","to_station_no":"06","control_day":19,"sale_time":"1100","is_support_c a
-     rd":"0","gg_num":"--","gr_num":"--","qt_num":"--","rw_num":"--","rz_num":"--","tz_num":"--","wz_num":"有","yb_num":"--","yw_num":"--","yz_num":"--","ze_num":"有", "
-     zy_num":"有","swz_num":"--"},"secretStr":"","buttonTextInfo":"23:00-07:00系统维护时间"}]}
+     {"start_station_name":"北京西","station_train_code":"T69","train_class_name":"特快","service_type":"1","end_station_name":"乌鲁木齐",
+     "arrive_time":"----","station_name":"北京","start_time":"10:01","stopover_time":"----","station_no":"01","isEnabled":false},
      
+     {"arrive_time":"15:18","station_name":"太原","start_time":"15:27","stopover_time":"9分钟","station_no":"05","isEnabled":false},
+     
+     {"arrive_time":"20:48","station_name":"乌鲁","start_time":"20:48","stopover_time":"----","station_no":"20","isEnabled":false}]
+     
+     },"messages":[],"validateMessages":{}}
      
      **/
     
@@ -111,21 +109,17 @@
         
         NSLog(@"Headers:%@",headers);
         
-        NSArray *array = [responseObject objectForKey:@"data"];
+        NSArray* trainStationArray = [[responseObject objectForKey:@"data"]  objectForKey:@"data"];
         
-        int count = array.count;
+        trainStations = [[NSMutableArray alloc] initWithCapacity:trainStationArray.count];
         
-        trains = [[NSMutableArray alloc] initWithCapacity:count];
-        
-        for (int index = 0 ; index < count; index++) {
+        for (NSDictionary *dic in trainStationArray) {
             
-            NSDictionary *dic = [[array objectAtIndex:index] objectForKey:@"queryLeftNewDTO"];
+            TrainStationInfo *tsInfo = [[TrainStationInfo alloc] initWithDic:dic];
             
-            TrainInfo *train = [[TrainInfo alloc] initWithDic:dic];
+            [trainStations addObject:tsInfo];
             
-            NSLog(@"train:%@",train);
-            
-            [trains addObject:train];
+            NSLog(@"%@",tsInfo);
             
         }
         
@@ -149,7 +143,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return (trains != nil) ? trains.count : 0;
+    return (trainStations != nil) ? trainStations.count : 0;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -171,13 +166,11 @@
     
     int index = indexPath.row;
     
-    TrainInfo *train = [trains objectAtIndex:index];
+    TrainStationInfo* tsInfo = [trainStations objectAtIndex:index];
     
     cell.textLabel.font = [UIFont systemFontOfSize:10];
     
-    cell.textLabel.text = [train description];
-    
-    
+    cell.textLabel.text = [tsInfo description];
     
     return cell;
 }
@@ -185,12 +178,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    NSString* stationName = cell.textLabel.text;
-    
-    Station *station = [[SharedInstance sharedInstance].stations objectForKey:stationName];
-    
-    NSLog(@"%@",station);
     
     [cell setSelected:NO];
     
