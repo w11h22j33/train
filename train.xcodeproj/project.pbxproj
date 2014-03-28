@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		721231AF94624329A14AA500 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C6D49451F1E409583DD145F /* libPods.a */; };
+		AE341EA118E4761500E9F422 /* TrainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE341EA018E4761500E9F422 /* TrainTableViewController.m */; };
+		AE341EA418E4819800E9F422 /* TrainInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AE341EA318E4819800E9F422 /* TrainInfo.m */; };
 		AE4F17D118E3042400A7EEC1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4F17D018E3042400A7EEC1 /* Foundation.framework */; };
 		AE4F17D318E3042400A7EEC1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4F17D218E3042400A7EEC1 /* CoreGraphics.framework */; };
 		AE4F17D518E3042400A7EEC1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4F17D418E3042400A7EEC1 /* UIKit.framework */; };
@@ -23,7 +25,7 @@
 		AE4F17FC18E3042400A7EEC1 /* trainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4F17FB18E3042400A7EEC1 /* trainTests.m */; };
 		AE4F180718E38A3600A7EEC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE4F180518E38A3600A7EEC1 /* Main.storyboard */; };
 		AE4F180A18E396B300A7EEC1 /* SharedInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4F180918E396B300A7EEC1 /* SharedInstance.m */; };
-		AE55F50E18E40551002AA08A /* StationTableViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE55F50D18E40551002AA08A /* StationTableViewTableViewController.m */; };
+		AE55F50E18E40551002AA08A /* StationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE55F50D18E40551002AA08A /* StationTableViewController.m */; };
 		AE55F51118E40874002AA08A /* AFUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AE55F51018E40874002AA08A /* AFUtil.m */; };
 		AE55F51418E410C1002AA08A /* Station.m in Sources */ = {isa = PBXBuildFile; fileRef = AE55F51318E410C1002AA08A /* Station.m */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,10 @@
 
 /* Begin PBXFileReference section */
 		0C6D49451F1E409583DD145F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE341E9F18E4761500E9F422 /* TrainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainTableViewController.h; sourceTree = "<group>"; };
+		AE341EA018E4761500E9F422 /* TrainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainTableViewController.m; sourceTree = "<group>"; };
+		AE341EA218E4819800E9F422 /* TrainInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainInfo.h; sourceTree = "<group>"; };
+		AE341EA318E4819800E9F422 /* TrainInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainInfo.m; sourceTree = "<group>"; };
 		AE4F17CD18E3042400A7EEC1 /* train.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = train.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE4F17D018E3042400A7EEC1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AE4F17D218E3042400A7EEC1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -61,8 +67,8 @@
 		AE4F180618E38A3600A7EEC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AE4F180818E396B300A7EEC1 /* SharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedInstance.h; sourceTree = "<group>"; };
 		AE4F180918E396B300A7EEC1 /* SharedInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedInstance.m; sourceTree = "<group>"; };
-		AE55F50C18E40551002AA08A /* StationTableViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationTableViewTableViewController.h; sourceTree = "<group>"; };
-		AE55F50D18E40551002AA08A /* StationTableViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationTableViewTableViewController.m; sourceTree = "<group>"; };
+		AE55F50C18E40551002AA08A /* StationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationTableViewController.h; sourceTree = "<group>"; };
+		AE55F50D18E40551002AA08A /* StationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationTableViewController.m; sourceTree = "<group>"; };
 		AE55F50F18E40874002AA08A /* AFUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFUtil.h; sourceTree = "<group>"; };
 		AE55F51018E40874002AA08A /* AFUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFUtil.m; sourceTree = "<group>"; };
 		AE55F51218E410C1002AA08A /* Station.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Station.h; sourceTree = "<group>"; };
@@ -139,12 +145,16 @@
 				AE4F17D718E3042400A7EEC1 /* Supporting Files */,
 				AE4F180818E396B300A7EEC1 /* SharedInstance.h */,
 				AE4F180918E396B300A7EEC1 /* SharedInstance.m */,
-				AE55F50C18E40551002AA08A /* StationTableViewTableViewController.h */,
-				AE55F50D18E40551002AA08A /* StationTableViewTableViewController.m */,
+				AE55F50C18E40551002AA08A /* StationTableViewController.h */,
+				AE55F50D18E40551002AA08A /* StationTableViewController.m */,
+				AE341E9F18E4761500E9F422 /* TrainTableViewController.h */,
+				AE341EA018E4761500E9F422 /* TrainTableViewController.m */,
 				AE55F50F18E40874002AA08A /* AFUtil.h */,
 				AE55F51018E40874002AA08A /* AFUtil.m */,
 				AE55F51218E410C1002AA08A /* Station.h */,
 				AE55F51318E410C1002AA08A /* Station.m */,
+				AE341EA218E4819800E9F422 /* TrainInfo.h */,
+				AE341EA318E4819800E9F422 /* TrainInfo.m */,
 			);
 			path = train;
 			sourceTree = "<group>";
@@ -310,9 +320,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE55F50E18E40551002AA08A /* StationTableViewTableViewController.m in Sources */,
+				AE55F50E18E40551002AA08A /* StationTableViewController.m in Sources */,
 				AE4F17E718E3042400A7EEC1 /* ViewController.m in Sources */,
+				AE341EA118E4761500E9F422 /* TrainTableViewController.m in Sources */,
 				AE55F51118E40874002AA08A /* AFUtil.m in Sources */,
+				AE341EA418E4819800E9F422 /* TrainInfo.m in Sources */,
 				AE4F17E118E3042400A7EEC1 /* AppDelegate.m in Sources */,
 				AE4F17DD18E3042400A7EEC1 /* main.m in Sources */,
 				AE55F51418E410C1002AA08A /* Station.m in Sources */,

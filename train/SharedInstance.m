@@ -22,6 +22,7 @@
 @implementation SharedInstance
 
 @synthesize cookies,loginFlag,stations;
+@synthesize beginStation,endStation;
 
 static SharedInstance * instance;
 

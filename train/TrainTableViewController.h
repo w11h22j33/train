@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Station.h"
 
-@interface StationTableViewTableViewController : UITableViewController
+@interface TrainTableViewController : UITableViewController
+
+
 
 @end

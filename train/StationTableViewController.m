@@ -6,15 +6,16 @@
 //  Copyright (c) 2014年 ___NAVY___. All rights reserved.
 //
 
-#import "StationTableViewTableViewController.h"
+#import "StationTableViewController.h"
 #import "AFUtil.h"
 #import "SharedInstance.h"
 
-@interface StationTableViewTableViewController ()
+@interface StationTableViewController ()
 
 @end
 
-@implementation StationTableViewTableViewController
+@implementation StationTableViewController
+@synthesize stationType,delegate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -37,7 +38,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    [self doLoadStation];
+    NSMutableDictionary* stations = [SharedInstance sharedInstance].stations;
+    
+    if (stations && stations.count > 1) {
+        
+    }else{
+        
+        [self doLoadStation];
+        
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,7 +95,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseIdentifier" forIndexPath:indexPath];
+    
+    static NSString *CellIdentifier = @"reuseIdentifier";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
     int index = indexPath.row;
     
@@ -100,10 +117,15 @@
     
     NSString* stationName = cell.textLabel.text;
     
-    NSLog(@"%@",[[SharedInstance sharedInstance].stations objectForKey:stationName]);
+    Station *station = [[SharedInstance sharedInstance].stations objectForKey:stationName];
+    
+    NSLog(@"%@",station);
     
     [cell setSelected:NO];
     
+    [self.delegate didSelectedStation:station stationType:self.stationType];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

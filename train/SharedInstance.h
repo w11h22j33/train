@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Station.h"
 
 @interface SharedInstance : NSObject
 
 @property (nonatomic,strong) NSMutableDictionary* cookies;
 @property (nonatomic,strong) NSMutableDictionary* stations;
+@property (nonatomic,strong) Station* beginStation;
+@property (nonatomic,strong) Station* endStation;
 
 + (SharedInstance*)sharedInstance;
 

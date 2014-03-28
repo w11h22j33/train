@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+#import "StationTableViewController.h"
+#import "TrainTableViewController.h"
+
+@interface ViewController : UIViewController<StationTableViewControllerDelegate>
 
 @end

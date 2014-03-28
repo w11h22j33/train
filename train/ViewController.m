@@ -11,12 +11,13 @@
 #import <UIImageView+AFNetworking.h>
 #import "AFUtil.h"
 
-
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *tfAccount;
 @property (weak, nonatomic) IBOutlet UITextField *tfPassword;
 @property (weak, nonatomic) IBOutlet UITextField *tfVerCode;
+@property (weak, nonatomic) IBOutlet UITextField *tfBeginStation;
+@property (weak, nonatomic) IBOutlet UITextField *tfEndStation;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageVerCode;
 @property (strong,nonatomic) SharedInstance *sharedInstance;
@@ -24,6 +25,8 @@
 
 - (IBAction)actionButtonClicked:(id)sender;
 - (IBAction)actionRefreshVerCode:(id)sender;
+- (IBAction)actionSelectStation:(id)sender;
+- (IBAction)actionQueryTrain:(id)sender;
 
 - (void)doInit;
 - (void)getVerCode;
@@ -33,7 +36,7 @@
 
 @implementation ViewController
 
-@synthesize tfAccount,tfPassword,imageVerCode,sharedInstance,tfVerCode;
+@synthesize tfAccount,tfPassword,imageVerCode,sharedInstance,tfVerCode,tfBeginStation,tfEndStation;
 
 - (void)viewDidLoad
 {
@@ -68,6 +71,42 @@
 - (IBAction)actionRefreshVerCode:(id)sender {
     
     [self getVerCode];
+    
+}
+
+
+
+- (IBAction)actionSelectStation:(id)sender {
+    
+    int tag = [sender tag];
+    
+    NSString* identifier = nil;
+    
+    if (tag==101) {
+        
+        identifier = @"beginStation";
+        
+    }else if(tag==102){
+        
+        identifier = @"endStation";
+        
+    }
+    
+    StationTableViewController* vc = [[StationTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    [vc setDelegate:self];
+    [vc setStationType:identifier];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+- (IBAction)actionQueryTrain:(id)sender {
+    
+    TrainTableViewController* vc = [[TrainTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+
     
 }
 
@@ -165,7 +204,7 @@
         [alert show];
         
         if ([SharedInstance isLogin]) {
-#warning 查询车站信息
+            
         }else{
             [self getVerCode];
         }
@@ -174,6 +213,26 @@
         NSLog(@"Error: %@", error);
         [self doInit];
     }];
+    
+}
+
+- (void)didSelectedStation:(Station *)station stationType:(NSString *)stationType{
+    
+    NSLog(@"%@ ---> %@",stationType,station);
+    
+    if ([@"beginStation" isEqualToString:stationType]) {
+        
+        [tfBeginStation setText:station.sZHName];
+        
+        [SharedInstance sharedInstance].beginStation = station;
+        
+    }else if ([@"endStation" isEqualToString:stationType]){
+        
+        [tfEndStation setText:station.sZHName];
+        
+        [SharedInstance sharedInstance].endStation = station;
+        
+    }
     
 }
 
