@@ -78,6 +78,8 @@
 
 - (IBAction)actionSelectStation:(id)sender {
     
+    [self.view endEditing:YES];
+    
     int tag = [sender tag];
     
     NSString* identifier = nil;
@@ -103,14 +105,14 @@
 
 - (IBAction)actionQueryTrain:(id)sender {
     
+    [self.view endEditing:YES];
+    
     TrainTableViewController* vc = [[TrainTableViewController alloc] initWithStyle:UITableViewStylePlain];
     
     [self.navigationController pushViewController:vc animated:YES];
 
     
 }
-
-
 
 //初始化获取session
 - (void)doInit{

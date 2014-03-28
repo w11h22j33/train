@@ -6,18 +6,17 @@
 //  Copyright (c) 2014年 ___NAVY___. All rights reserved.
 //
 
-#import "TrainTableViewController.h"
+#import "DetailTableViewController.h"
 #import "AFUtil.h"
 #import "SharedInstance.h"
-#import "DetailTableViewController.h"
 
-@interface TrainTableViewController ()
+@interface DetailTableViewController ()
 
 @property (nonatomic,strong) NSMutableArray *trains;
 
 @end
 
-@implementation TrainTableViewController
+@implementation DetailTableViewController
 
 @synthesize trains;
 
@@ -34,7 +33,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"车次列表";
+    self.navigationItem.title = @"车次时刻表";
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

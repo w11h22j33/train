@@ -124,5 +124,6 @@
 @property (nonatomic,strong) NSString *t_canWebBuy;
 @property (nonatomic,strong) NSString *t_is_support_card;
 
+- (id)initWithDic:(NSDictionary*)dic;
 
 @end

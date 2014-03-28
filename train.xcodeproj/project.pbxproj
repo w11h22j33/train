@@ -28,6 +28,7 @@
 		AE55F50E18E40551002AA08A /* StationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE55F50D18E40551002AA08A /* StationTableViewController.m */; };
 		AE55F51118E40874002AA08A /* AFUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AE55F51018E40874002AA08A /* AFUtil.m */; };
 		AE55F51418E410C1002AA08A /* Station.m in Sources */ = {isa = PBXBuildFile; fileRef = AE55F51318E410C1002AA08A /* Station.m */; };
+		AE7F7D2618E55D8E00AF2222 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7F7D2518E55D8E00AF2222 /* DetailTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		AE55F51018E40874002AA08A /* AFUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFUtil.m; sourceTree = "<group>"; };
 		AE55F51218E410C1002AA08A /* Station.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Station.h; sourceTree = "<group>"; };
 		AE55F51318E410C1002AA08A /* Station.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Station.m; sourceTree = "<group>"; };
+		AE7F7D2418E55D8E00AF2222 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
+		AE7F7D2518E55D8E00AF2222 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 		F30EEB8EA5DF48C7BACC160D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +139,8 @@
 		AE4F17D618E3042400A7EEC1 /* train */ = {
 			isa = PBXGroup;
 			children = (
+				AE7F7D2418E55D8E00AF2222 /* DetailTableViewController.h */,
+				AE7F7D2518E55D8E00AF2222 /* DetailTableViewController.m */,
 				AE4F180518E38A3600A7EEC1 /* Main.storyboard */,
 				AE4F17DF18E3042400A7EEC1 /* AppDelegate.h */,
 				AE4F17E018E3042400A7EEC1 /* AppDelegate.m */,
@@ -320,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE7F7D2618E55D8E00AF2222 /* DetailTableViewController.m in Sources */,
 				AE55F50E18E40551002AA08A /* StationTableViewController.m in Sources */,
 				AE4F17E718E3042400A7EEC1 /* ViewController.m in Sources */,
 				AE341EA118E4761500E9F422 /* TrainTableViewController.m in Sources */,

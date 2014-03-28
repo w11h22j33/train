@@ -10,7 +10,7 @@
 #import "Station.h"
 #import "TrainInfo.h"
 
-@interface TrainTableViewController : UITableViewController
+@interface DetailTableViewController : UITableViewController
 
 
 

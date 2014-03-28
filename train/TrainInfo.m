@@ -18,4 +18,33 @@
 
 @synthesize t_to_station_telecode,t_train_no,t_tz_num,t_wz_num,t_yw_num,t_yz_num,t_ze_num,t_zy_num;
 
+- (id)initWithDic:(NSDictionary *)dic{
+    
+    self = [super init];
+    
+    NSArray *keys = [dic allKeys];
+    
+    for (NSString *key in keys) {
+        
+        NSString *propertyKey = [NSString stringWithFormat:@"t_%@",key];
+        NSString *propertySelector = [NSString stringWithFormat:@"setT_%@:",key];
+
+        if ([self respondsToSelector:NSSelectorFromString(propertySelector)]) {
+            
+            [self setValue:[dic objectForKey:key] forKey:propertyKey];
+            
+        }
+        
+    }
+    
+    return self;
+    
+}
+
+- (NSString *)description{
+    
+    return [NSString stringWithFormat:@"%@->%@ ;%@->%@ ;车次:%@ ;编号:%@",t_from_station_name,t_end_station_name,t_start_time,t_arrive_time,t_station_train_code,t_train_no];
+    
+}
+
 @end
