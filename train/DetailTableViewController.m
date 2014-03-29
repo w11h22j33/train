@@ -99,9 +99,11 @@
      
      **/
     
-    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     
     [AFUtil doGet:urlString parameters:nil responseSerializer:[AFJSONResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [SVProgressHUD showSuccessWithStatus:@"车次时刻表获取成功"];
         
         NSLog(@"Success--->");
         
@@ -126,6 +128,9 @@
         [self.tableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [SVProgressHUD showErrorWithStatus:@"车次时刻表获取成功"];
+        
         NSLog(@"Error: %@", error);
     }];
     

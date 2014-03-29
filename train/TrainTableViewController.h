@@ -12,6 +12,6 @@
 
 @interface TrainTableViewController : UITableViewController
 
-
+@property (nonatomic,strong) NSString* train_date;
 
 @end

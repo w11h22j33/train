@@ -29,7 +29,7 @@
 
 - (NSString *)description{
     
-    return [NSString stringWithFormat:@"车站：%@，全拼：%@，编号：%@",self.sZHName,self.sFullName,self.sNo];
+    return [NSString stringWithFormat:@"%@，%@，%@",self.sZHName,self.sFullName,self.sNo];
     
 }
 

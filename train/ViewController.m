@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *tfEndStation;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageVerCode;
+@property (weak, nonatomic) IBOutlet UIDatePicker *pickerDate;
+
 @property (strong,nonatomic) SharedInstance *sharedInstance;
 
 
@@ -36,7 +38,7 @@
 
 @implementation ViewController
 
-@synthesize tfAccount,tfPassword,imageVerCode,sharedInstance,tfVerCode,tfBeginStation,tfEndStation;
+@synthesize tfAccount,tfPassword,imageVerCode,sharedInstance,tfVerCode,tfBeginStation,tfEndStation,pickerDate;
 
 - (void)viewDidLoad
 {
@@ -108,6 +110,14 @@
     [self.view endEditing:YES];
     
     TrainTableViewController* vc = [[TrainTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    NSDate *select = [self.pickerDate date]; // 获取被选中的时间
+    NSDateFormatter *selectDateFormatter = [[NSDateFormatter alloc] init];
+    selectDateFormatter.dateFormat = @"yyyy-MM-dd"; // 设置时间和日期的格式
+    NSString *dateAndTime = [selectDateFormatter stringFromDate:select]; // 把date类型转为设置好格式的string类型
+    
+    
+    vc.train_date = dateAndTime;
     
     [self.navigationController pushViewController:vc animated:YES];
 

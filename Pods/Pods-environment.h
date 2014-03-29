@@ -6,6 +6,12 @@
 // project.
 
 
+// ADBIndexedTableView
+#define COCOAPODS_POD_AVAILABLE_ADBIndexedTableView
+#define COCOAPODS_VERSION_MAJOR_ADBIndexedTableView 1
+#define COCOAPODS_VERSION_MINOR_ADBIndexedTableView 1
+#define COCOAPODS_VERSION_PATCH_ADBIndexedTableView 0
+
 // AFNetworking
 #define COCOAPODS_POD_AVAILABLE_AFNetworking
 #define COCOAPODS_VERSION_MAJOR_AFNetworking 2
@@ -48,16 +54,15 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 2
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
-// JSONKit
-#define COCOAPODS_POD_AVAILABLE_JSONKit
-// This library does not follow semantic-versioning,
-// so we were not able to define version macros.
-// Please contact the author.
-// Version: 1.5pre.
-
 // Masonry
 #define COCOAPODS_POD_AVAILABLE_Masonry
 #define COCOAPODS_VERSION_MAJOR_Masonry 0
 #define COCOAPODS_VERSION_MINOR_Masonry 4
 #define COCOAPODS_VERSION_PATCH_Masonry 0
+
+// SVProgressHUD
+#define COCOAPODS_POD_AVAILABLE_SVProgressHUD
+#define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
+#define COCOAPODS_VERSION_MINOR_SVProgressHUD 0
+#define COCOAPODS_VERSION_PATCH_SVProgressHUD 0
 

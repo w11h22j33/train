@@ -10,7 +10,8 @@
 #import "AFUtil.h"
 #import "SharedInstance.h"
 
-@interface StationTableViewController ()
+
+@interface StationTableViewController ()<ADBIndexedTableViewDataSource>
 
 @end
 
@@ -32,15 +33,28 @@
     
     self.navigationItem.title = @"车站列表";
     
+    CGRect rect = [[[UIApplication sharedApplication] keyWindow] frame];
+    
+    self.tableView = [[ADBIndexedTableView alloc] initWithFrame:rect style:(UITableViewStylePlain)];
+    
+    [self.tableView setDataSource:(id<UITableViewDataSource>)self.tableView];
+    [self.tableView setDelegate:self];
+    [(ADBIndexedTableView*)self.tableView setIndexDataSource:self];
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    NSMutableDictionary* stations = [SharedInstance sharedInstance].stations;
+    NSMutableArray* stations = [SharedInstance sharedInstance].stations;
     
     if (stations && stations.count > 1) {
+        
+        [(ADBIndexedTableView*)self.tableView reloadDataWithObjects:stations];
+        
+        [self.tableView reloadData];
         
     }else{
         
@@ -61,7 +75,12 @@
     
     NSString* urlString = @"https://kyfw.12306.cn/otn/resources/js/framework/station_name.js";
     
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+    
     [AFUtil doGet:urlString parameters:nil responseSerializer:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [SVProgressHUD showSuccessWithStatus:@"车站列表获取成功"];
+        
         NSLog(@"Success--->");
         
         NSDictionary *headers = operation.response.allHeaderFields;
@@ -70,9 +89,18 @@
         
         [SharedInstance initStations:operation.responseString];
         
+        NSMutableArray *stations = [SharedInstance sharedInstance].stations;
+        
+        [(ADBIndexedTableView*)self.tableView reloadDataWithObjects:stations];
+        
         [self.tableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        
+        [SVProgressHUD showErrorWithStatus:@"车站列表获取失败"];
+        
         NSLog(@"Error: %@", error);
     }];
     
@@ -80,21 +108,13 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSString *)objectsFieldForIndexedTableView:(ADBIndexedTableView *)tableView{
     
-    // Return the number of sections.
-    return 1;
+    return @"index0";
+    
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [SharedInstance sharedInstance].stations.allKeys.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)indexedTableView:(ADBIndexedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath usingObject:(id)object{
     
     static NSString *CellIdentifier = @"reuseIdentifier";
     
@@ -104,9 +124,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    int index = indexPath.row;
+    Station *station = [[(ADBIndexedTableView*)tableView objectAtIndexPath:indexPath] objectForKey:@"object"];
     
-    cell.textLabel.text = [[[SharedInstance sharedInstance].stations allKeys] objectAtIndex:index];
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
+    
+    cell.textLabel.text = [station description];
     
     return cell;
 }
@@ -115,9 +137,7 @@
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    NSString* stationName = cell.textLabel.text;
-    
-    Station *station = [[SharedInstance sharedInstance].stations objectForKey:stationName];
+    Station *station = [[(ADBIndexedTableView*)tableView objectAtIndexPath:indexPath] objectForKey:@"object"];
     
     NSLog(@"%@",station);
     

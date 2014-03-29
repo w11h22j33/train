@@ -1,4 +1,5 @@
 PODS:
+  - ADBIndexedTableView (1.1.0)
   - AFNetworking (2.2.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
@@ -18,17 +19,19 @@ PODS:
   - AFNetworking/UIKit (2.2.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - JSONKit (1.5pre)
   - Masonry (0.4.0)
+  - SVProgressHUD (1.0)
 
 DEPENDENCIES:
+  - ADBIndexedTableView (~> 1.1.0)
   - AFNetworking (~> 2.2.0)
-  - JSONKit (~> 1.5pre)
   - Masonry (~> 0.4.0)
+  - SVProgressHUD (~> 1.0)
 
 SPEC CHECKSUMS:
+  ADBIndexedTableView: 4c045f77e9d365322685910fd0d8c81a7a72ffcd
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
-  JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
   Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
+  SVProgressHUD: 5e10939a296debf5fe5a5895eda9539b8b2114f1
 
 COCOAPODS: 0.29.0
