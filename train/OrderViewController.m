@@ -125,7 +125,11 @@
 
 - (IBAction)actionAddPassenger:(id)sender {
     
+    PassengerTableViewController* ptvc = [[PassengerTableViewController alloc] init];
     
+    ptvc.delegate = self;
+    
+    [self.navigationController pushViewController:ptvc animated:YES];
     
 }
 
@@ -149,4 +153,18 @@
     int index = self.segTrainNomal.selectedSegmentIndex;
     
 }
+
+- (void)didSelectedPassenger:(PassengerInfo *)passenger{
+    
+    self.passInfo  = passenger;
+    
+    self.tfPassengerName.text = self.passInfo.p_passenger_name;
+    
+    self.tfIdTypeName.text = self.passInfo.p_passenger_id_type_name;
+    
+    self.tfIdTypeNo.text = self.passInfo.p_passenger_id_type_code;
+    
+    self.tfMobileNo.text = self.passInfo.p_mobile_no;
+}
+
 @end

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "PassengerInfo.h"
 #import "TrainInfo.h"
+#import "PassengerTableViewController.h"
 
-@interface OrderViewController : UIViewController
+@interface OrderViewController : UIViewController<PassengerTableViewControllerDelegate>
 
 @property (nonatomic,strong) PassengerInfo *passInfo;
 @property (nonatomic,strong) TrainInfo *trainInfo;
