@@ -10,6 +10,7 @@
 #import "AFUtil.h"
 #import "SharedInstance.h"
 #import "TrainStationInfo.h"
+#import "OrderViewController.h"
 
 @interface DetailTableViewController ()
 
@@ -36,11 +37,9 @@
     
     self.navigationItem.title = @"时刻表";
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"预定" style:(UIBarButtonItemStylePlain) target:self action:@selector(actionPreOrder)];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = rightItem;
     
     Station* beginStation = [SharedInstance sharedInstance].beginStation;
     Station* endStation = [SharedInstance sharedInstance].endStation;
@@ -60,6 +59,18 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)actionPreOrder{
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    OrderViewController *orderVC = [storyboard instantiateViewControllerWithIdentifier:@"OrderViewController"];
+    
+    orderVC.trainInfo = self.train;
+    
+    [self.navigationController pushViewController:orderVC animated:YES];
+    
 }
 
 //初始化获取session

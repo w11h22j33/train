@@ -10,7 +10,6 @@
 #import "AFUtil.h"
 #import "SharedInstance.h"
 #import "TrainStationInfo.h"
-#import "PassengerInfo.h"
 
 @interface PassengerTableViewController ()
 
@@ -20,7 +19,7 @@
 
 @implementation PassengerTableViewController
 
-@synthesize passengers;
+@synthesize passengers,delegate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -203,6 +202,14 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     [cell setSelected:NO];
+    
+    int index = indexPath.row;
+    
+    PassengerInfo* passInfo = [passengers objectAtIndex:index];
+    
+    if (self.delegate) {
+        [self.delegate didSelectedPassenger:passInfo];
+    }
     
     [self.navigationController popViewControllerAnimated:YES];
 }

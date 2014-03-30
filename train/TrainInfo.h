@@ -123,6 +123,7 @@
 
 @property (nonatomic,strong) NSString *t_canWebBuy;
 @property (nonatomic,strong) NSString *t_is_support_card;
+@property (nonatomic,strong) NSString *t_start_train_date;
 
 - (id)initWithDic:(NSDictionary*)dic;
 

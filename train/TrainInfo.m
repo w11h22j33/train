@@ -12,7 +12,7 @@
 
 @synthesize t_arrive_time,t_canWebBuy,t_day_difference,t_end_station_name,t_end_station_telecode,t_from_station_name,t_from_station_no,t_from_station_telecode;
 
-@synthesize t_gr_num,t_is_support_card,t_lishi,t_qt_num,t_rw_num,t_rz_num;
+@synthesize t_gr_num,t_is_support_card,t_lishi,t_qt_num,t_rw_num,t_rz_num,t_start_train_date;
 
 @synthesize t_start_station_name,t_start_station_telecode,t_start_time,t_station_train_code,t_swz_num,t_to_station_name,t_to_station_no;
 

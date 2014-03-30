@@ -9,7 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "Station.h"
 #import "TrainInfo.h"
+#import "PassengerInfo.h"
+
+@protocol PassengerTableViewControllerDelegate<NSObject>
+
+- (void)didSelectedPassenger:(PassengerInfo*)passenger;
+
+@end
 
 @interface PassengerTableViewController : UITableViewController
+
+@property (nonatomic,assign) id<PassengerTableViewControllerDelegate> delegate;
 
 @end

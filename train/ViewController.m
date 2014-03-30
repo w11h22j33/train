@@ -47,6 +47,11 @@
     
     self.navigationItem.title = @"登录";
     
+    
+    [self.tfBeginStation setEnabled:NO];
+    
+    [self.tfEndStation setEnabled:NO];
+    
     [self doInit];
     
 }

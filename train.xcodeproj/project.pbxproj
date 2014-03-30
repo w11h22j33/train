@@ -32,6 +32,7 @@
 		AE99F7BF18E5B67E00B8CBCF /* TrainStationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AE99F7BE18E5B67E00B8CBCF /* TrainStationInfo.m */; };
 		AEB4DBDA18E7FBB400525372 /* PassengerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB4DBD918E7FBB400525372 /* PassengerTableViewController.m */; };
 		AEB4DBDD18E8048B00525372 /* PassengerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB4DBDC18E8048B00525372 /* PassengerInfo.m */; };
+		AEB4DBE018E828A500525372 /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB4DBDF18E828A500525372 /* OrderViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,8 @@
 		AEB4DBD918E7FBB400525372 /* PassengerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerTableViewController.m; sourceTree = "<group>"; };
 		AEB4DBDB18E8048B00525372 /* PassengerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerInfo.h; sourceTree = "<group>"; };
 		AEB4DBDC18E8048B00525372 /* PassengerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerInfo.m; sourceTree = "<group>"; };
+		AEB4DBDE18E828A500525372 /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
+		AEB4DBDF18E828A500525372 /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
 		F30EEB8EA5DF48C7BACC160D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,6 +223,8 @@
 				AE341EA018E4761500E9F422 /* TrainTableViewController.m */,
 				AE7F7D2418E55D8E00AF2222 /* DetailTableViewController.h */,
 				AE7F7D2518E55D8E00AF2222 /* DetailTableViewController.m */,
+				AEB4DBDE18E828A500525372 /* OrderViewController.h */,
+				AEB4DBDF18E828A500525372 /* OrderViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -367,6 +372,7 @@
 				AE4F17DD18E3042400A7EEC1 /* main.m in Sources */,
 				AE55F51418E410C1002AA08A /* Station.m in Sources */,
 				AEB4DBDA18E7FBB400525372 /* PassengerTableViewController.m in Sources */,
+				AEB4DBE018E828A500525372 /* OrderViewController.m in Sources */,
 				AE4F180A18E396B300A7EEC1 /* SharedInstance.m in Sources */,
 				AEB4DBDD18E8048B00525372 /* PassengerInfo.m in Sources */,
 			);
