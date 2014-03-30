@@ -129,7 +129,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        [SVProgressHUD showErrorWithStatus:@"车次时刻表获取成功"];
+        [SVProgressHUD showErrorWithStatus:@"车次时刻表获取失败"];
         
         NSLog(@"Error: %@", error);
     }];

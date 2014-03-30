@@ -10,6 +10,7 @@
 
 #import "StationTableViewController.h"
 #import "TrainTableViewController.h"
+#import "PassengerTableViewController.h"
 
 @interface ViewController : UIViewController<StationTableViewControllerDelegate>
 

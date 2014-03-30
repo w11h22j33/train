@@ -57,18 +57,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 按钮事件-登录
+
 - (IBAction)actionButtonClicked:(id)sender {
     
     [self.view endEditing:YES];
     
     NSString* verCode = tfVerCode.text;
-    NSString* account = tfAccount.text;
-    NSString* password = tfPassword.text;
     
-    [self doLogin:verCode account:account password:password];
+    [self doCheckVercode:verCode];
     
     
 }
+
+#pragma mark - 按钮事件-刷新图形验证码
 
 - (IBAction)actionRefreshVerCode:(id)sender {
     
@@ -76,7 +78,7 @@
     
 }
 
-
+#pragma mark - 按钮事件-跳转车站选择页面
 
 - (IBAction)actionSelectStation:(id)sender {
     
@@ -105,6 +107,8 @@
     
 }
 
+#pragma mark - 按钮事件-跳转车次查询页面
+
 - (IBAction)actionQueryTrain:(id)sender {
     
     [self.view endEditing:YES];
@@ -116,7 +120,6 @@
     selectDateFormatter.dateFormat = @"yyyy-MM-dd"; // 设置时间和日期的格式
     NSString *dateAndTime = [selectDateFormatter stringFromDate:select]; // 把date类型转为设置好格式的string类型
     
-    
     vc.train_date = dateAndTime;
     
     [self.navigationController pushViewController:vc animated:YES];
@@ -124,12 +127,14 @@
     
 }
 
-//初始化获取session
+#pragma mark - 初始化获取session
+
 - (void)doInit{
     
     NSString* urlString = @"https://kyfw.12306.cn/otn/login/init";
     
     [AFUtil doGet:urlString parameters:nil responseSerializer:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
         NSLog(@"Success--->");
         
         NSDictionary *headers = operation.response.allHeaderFields;
@@ -140,12 +145,14 @@
         
         [self getVerCode];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         NSLog(@"Error: %@", error);
     }];
     
 }
 
-//获取图形验证码
+#pragma mark - 获取图形验证码
+
 - (void)getVerCode{
     
     NSLog(@"getVerCode -->");
@@ -169,7 +176,66 @@
     }];
 }
 
+#pragma mark - 登录网络请求
+
+- (void)doCheckVercode:(NSString *)verCode{
+    
+    [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeGradient)];
+    
+    NSLog(@"doCheckVercode -->");
+    
+    NSString* urlString = @"https://kyfw.12306.cn/otn/passcodeNew/checkRandCodeAnsyn";
+    
+    NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithCapacity:1];
+    
+    [parameters setObject:verCode forKey:@"randCode"];
+    
+    [AFUtil doPost:urlString parameters:parameters responseSerializer:[AFJSONResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [SVProgressHUD dismiss];
+        
+        NSLog(@"doLogin Success--->");
+        
+        NSDictionary *headers = operation.response.allHeaderFields;
+        
+        NSLog(@"Headers:%@",headers);
+        
+        NSLog(@"responseString:%@",operation.responseString);
+        
+        NSLog(@"responseObject:%@",responseObject);
+        
+        NSString* data = [responseObject objectForKey:@"data"];
+        
+        if ([@"Y" isEqualToString:data]) {
+            
+            NSString* verCode = tfVerCode.text;
+            NSString* account = tfAccount.text;
+            NSString* password = tfPassword.text;
+            
+            [self doLogin:verCode account:account password:password];
+            
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"验证码输入有误"];
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Error: %@", error);
+        
+        [SVProgressHUD showErrorWithStatus:@"验证码输入有误"];
+        
+    }];
+    
+}
+
+
+
+#pragma mark - 登录网络请求
+
 - (void)doLogin:(NSString *)verCode account:(NSString *)account password:(NSString *)password{
+    
+    [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeGradient)];
     
     NSLog(@"doLogin -->");
     
@@ -182,7 +248,7 @@
     [parameters setObject:password forKey:@"userDTO.password"];
     
     [AFUtil doPost:urlString parameters:parameters responseSerializer:[AFJSONResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+        
         NSLog(@"doLogin Success--->");
         
         NSDictionary *headers = operation.response.allHeaderFields;
@@ -193,29 +259,31 @@
         
         NSLog(@"responseObject:%@",responseObject);
         
-        NSString* data = [NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"data"] objectForKey:@"loginCheck"]];
+        NSObject* data = [NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"data"] objectForKey:@"loginCheck"]];
         
         NSLog(@"data:%@",data);
         
-        NSString* messages = @"";
+        NSString* messages = @"登录成功";
         
-        @try {
+        if (data == Nil || [@"(null)" isEqual:data]) {
+            
             messages = [NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"messages"] objectAtIndex:0]];
+            
+            [SharedInstance setLoginFlag:NO];
+            
+        }else{
+            [SharedInstance setLoginFlag:YES];
         }
-        @catch (NSException *exception) {}
-        @finally {}
         
-        [SharedInstance setLoginFlag:YES];
-        
-        messages = [SharedInstance isLogin]?@"登录成功":messages;
+        [SVProgressHUD showSuccessWithStatus:messages];
         
         NSLog(@"messages:%@",messages);
         
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"登录结果" message:messages delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        
-        [alert show];
-        
         if ([SharedInstance isLogin]) {
+            
+            PassengerTableViewController* ptvc = [[PassengerTableViewController alloc] init];
+            
+            [self.navigationController pushViewController:ptvc animated:YES];
             
         }else{
             [self getVerCode];
@@ -223,10 +291,15 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        
+        [SVProgressHUD showErrorWithStatus:@"登录失败"];
+        
         [self doInit];
     }];
     
 }
+
+#pragma mark - 选择车站回调方法
 
 - (void)didSelectedStation:(Station *)station stationType:(NSString *)stationType{
     
