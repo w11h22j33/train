@@ -7,8 +7,6 @@
 //
 
 #import "TrainTableViewController.h"
-#import "AFUtil.h"
-#import "SharedInstance.h"
 #import "DetailTableViewController.h"
 
 @interface TrainTableViewController ()
@@ -117,6 +115,10 @@
             NSDictionary *dic = [[array objectAtIndex:index] objectForKey:@"queryLeftNewDTO"];
             
             TrainInfo *train = [[TrainInfo alloc] initWithDic:dic];
+            
+            NSString* secretStr = [[array objectAtIndex:index] objectForKey:@"secretStr"];
+            
+            train.t_secretStr = secretStr;
             
             NSLog(@"train:%@",train);
             

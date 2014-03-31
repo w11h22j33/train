@@ -95,7 +95,7 @@
  
  "canWebBuy":"IS_TIME_NOT_BUY",可购买标志：Y为可买
  
- "lishiValue":"496",
+ "lishiValue":"496",公里
  
  "yp_info":"1009103191402530001110091001093016400073",
  
@@ -124,6 +124,9 @@
 @property (nonatomic,strong) NSString *t_canWebBuy;
 @property (nonatomic,strong) NSString *t_is_support_card;
 @property (nonatomic,strong) NSString *t_start_train_date;
+@property (nonatomic,strong) NSString *t_lishiValue;
+@property (nonatomic,strong) NSString *t_yp_info;
+@property (nonatomic,strong) NSString *t_secretStr;
 
 - (id)initWithDic:(NSDictionary*)dic;
 

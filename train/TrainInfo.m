@@ -18,6 +18,8 @@
 
 @synthesize t_to_station_telecode,t_train_no,t_tz_num,t_wz_num,t_yw_num,t_yz_num,t_ze_num,t_zy_num;
 
+@synthesize t_lishiValue,t_secretStr,t_yp_info;
+
 - (id)initWithDic:(NSDictionary *)dic{
     
     self = [super init];

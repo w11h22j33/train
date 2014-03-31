@@ -7,9 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "SharedInstance.h"
 #import <UIImageView+AFNetworking.h>
-#import "AFUtil.h"
 
 @interface ViewController ()
 
@@ -53,6 +51,19 @@
     [self.tfEndStation setEnabled:NO];
     
     [self doInit];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString* account = [userDefaults objectForKey:KEY_ACCOUNT];
+    NSString* password = [userDefaults objectForKey:KEY_PASSWORD];
+    
+    if (account) {
+        self.tfAccount.text = account;
+    }
+    
+    if (password) {
+        self.tfPassword.text = password;
+    }
     
 }
 
@@ -127,8 +138,9 @@
     
     vc.train_date = dateAndTime;
     
+    [SharedInstance sharedInstance].trainDateString = dateAndTime;
+    
     [self.navigationController pushViewController:vc animated:YES];
-
     
 }
 
@@ -156,7 +168,7 @@
     
 }
 
-#pragma mark - 获取图形验证码
+#pragma mark - 网络请求：获取图形验证码
 
 - (void)getVerCode{
     
@@ -181,7 +193,7 @@
     }];
 }
 
-#pragma mark - 登录网络请求
+#pragma mark - 网络请求：单独校验验证码
 
 - (void)doCheckVercode:(NSString *)verCode{
     
@@ -236,7 +248,7 @@
 
 
 
-#pragma mark - 登录网络请求
+#pragma mark - 网络请求：登录
 
 - (void)doLogin:(NSString *)verCode account:(NSString *)account password:(NSString *)password{
     
@@ -278,6 +290,15 @@
             
         }else{
             [SharedInstance setLoginFlag:YES];
+            
+            NSString* account = tfAccount.text;
+            NSString* password = tfPassword.text;
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:account forKey:KEY_ACCOUNT];
+            [userDefaults setObject:password forKey:KEY_PASSWORD];
+            [userDefaults synchronize];
+            
         }
         
         [SVProgressHUD showSuccessWithStatus:messages];

@@ -118,8 +118,6 @@
     
     [AFUtil doGet:urlString parameters:nil responseSerializer:[AFJSONResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        [SVProgressHUD showSuccessWithStatus:@"联系人列表获取成功"];
-        
         NSLog(@"Success--->");
         
         NSDictionary *headers = operation.response.allHeaderFields;
@@ -130,19 +128,32 @@
         
         NSArray* passengersArray = [[responseObject objectForKey:@"data"]  objectForKey:@"normal_passengers"];
 
-        passengers = [[NSMutableArray alloc] initWithCapacity:passengersArray.count];
-
-        for (NSDictionary *dic in passengersArray) {
+        NSLog(@"passengers:%@",passengers);
+        
+        if (passengersArray && [passengersArray isKindOfClass:[NSArray class]]) {
             
-            PassengerInfo *passInfo = [[PassengerInfo alloc] initWithDic:dic];
+            [SVProgressHUD showSuccessWithStatus:@"联系人列表获取成功"];
             
-            [passengers addObject:passInfo];
+            passengers = [[NSMutableArray alloc] initWithCapacity:passengersArray.count];
             
-            NSLog(@"%@",passengers);
+            for (NSDictionary *dic in passengersArray) {
+                
+                PassengerInfo *passInfo = [[PassengerInfo alloc] initWithDic:dic];
+                
+                [passengers addObject:passInfo];
+                
+                NSLog(@"%@",passengers);
+                
+            }
+            
+            [self.tableView reloadData];
+        }else{
+            
+            NSString* exMsg = [[responseObject objectForKey:@"data"]  objectForKey:@"exMsg"];
+            
+            [SVProgressHUD showSuccessWithStatus:exMsg];
             
         }
-        
-        [self.tableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

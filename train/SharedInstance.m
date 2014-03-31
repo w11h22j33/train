@@ -23,6 +23,7 @@
 
 @synthesize cookies,loginFlag,stations;
 @synthesize beginStation,endStation;
+@synthesize trainDateString;
 
 static SharedInstance * instance;
 

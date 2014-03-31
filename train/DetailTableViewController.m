@@ -7,8 +7,6 @@
 //
 
 #import "DetailTableViewController.h"
-#import "AFUtil.h"
-#import "SharedInstance.h"
 #import "TrainStationInfo.h"
 #import "OrderViewController.h"
 
