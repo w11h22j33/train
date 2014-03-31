@@ -7,8 +7,6 @@
 //
 
 #import "TrainTableViewController.h"
-#import "AFUtil.h"
-#import "SharedInstance.h"
 #import "DetailTableViewController.h"
 
 @interface TrainTableViewController ()
@@ -19,7 +17,7 @@
 
 @implementation TrainTableViewController
 
-@synthesize trains;
+@synthesize trains,train_date;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -65,19 +63,11 @@
 //初始化获取session
 - (void)doQueryTrain{
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *train_date = [dateFormatter stringFromDate:[NSDate date]];
-    
     NSString *from_station = [SharedInstance sharedInstance].beginStation.sNo;
     NSString *to_station = [SharedInstance sharedInstance].endStation.sNo;
     
-    train_date = @"2014-03-29";
-    from_station = @"VNP";
-    to_station = @"TYV";
     
-    
-    NSString* urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=%@&leftTicketDTO.from_station=%@&leftTicketDTO.to_station=%@&purpose_codes=ADULT",train_date,from_station,to_station];
+    NSString* urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=%@&leftTicketDTO.from_station=%@&leftTicketDTO.to_station=%@&purpose_codes=ADULT",self.train_date,from_station,to_station];
     
     /**
      
@@ -102,9 +92,11 @@
      
      **/
     
-    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     
     [AFUtil doGet:urlString parameters:nil responseSerializer:[AFJSONResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [SVProgressHUD showSuccessWithStatus:@"查询车次列表成功"];
         
         NSLog(@"Success--->");
         
@@ -124,6 +116,10 @@
             
             TrainInfo *train = [[TrainInfo alloc] initWithDic:dic];
             
+            NSString* secretStr = [[array objectAtIndex:index] objectForKey:@"secretStr"];
+            
+            train.t_secretStr = secretStr;
+            
             NSLog(@"train:%@",train);
             
             [trains addObject:train];
@@ -133,6 +129,9 @@
         [self.tableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [SVProgressHUD showErrorWithStatus:@"查询车次列表失败"];
+        
         NSLog(@"Error: %@", error);
     }];
     
@@ -179,7 +178,6 @@
     cell.textLabel.text = [train description];
     
     
-    
     return cell;
 }
 
@@ -187,15 +185,15 @@
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    NSString* stationName = cell.textLabel.text;
-    
-    Station *station = [[SharedInstance sharedInstance].stations objectForKey:stationName];
-    
-    NSLog(@"%@",station);
-    
     [cell setSelected:NO];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    DetailTableViewController* detail = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    detail.train = [trains objectAtIndex:indexPath.row];
+    
+    NSLog(@"%@",detail.train);
+    
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 /*

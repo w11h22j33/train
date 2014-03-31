@@ -29,6 +29,10 @@
 		AE55F51118E40874002AA08A /* AFUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AE55F51018E40874002AA08A /* AFUtil.m */; };
 		AE55F51418E410C1002AA08A /* Station.m in Sources */ = {isa = PBXBuildFile; fileRef = AE55F51318E410C1002AA08A /* Station.m */; };
 		AE7F7D2618E55D8E00AF2222 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7F7D2518E55D8E00AF2222 /* DetailTableViewController.m */; };
+		AE99F7BF18E5B67E00B8CBCF /* TrainStationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AE99F7BE18E5B67E00B8CBCF /* TrainStationInfo.m */; };
+		AEB4DBDA18E7FBB400525372 /* PassengerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB4DBD918E7FBB400525372 /* PassengerTableViewController.m */; };
+		AEB4DBDD18E8048B00525372 /* PassengerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB4DBDC18E8048B00525372 /* PassengerInfo.m */; };
+		AEB4DBE018E828A500525372 /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB4DBDF18E828A500525372 /* OrderViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +80,14 @@
 		AE55F51318E410C1002AA08A /* Station.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Station.m; sourceTree = "<group>"; };
 		AE7F7D2418E55D8E00AF2222 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		AE7F7D2518E55D8E00AF2222 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
+		AE99F7BD18E5B67E00B8CBCF /* TrainStationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainStationInfo.h; sourceTree = "<group>"; };
+		AE99F7BE18E5B67E00B8CBCF /* TrainStationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainStationInfo.m; sourceTree = "<group>"; };
+		AEB4DBD818E7FBB400525372 /* PassengerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerTableViewController.h; sourceTree = "<group>"; };
+		AEB4DBD918E7FBB400525372 /* PassengerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerTableViewController.m; sourceTree = "<group>"; };
+		AEB4DBDB18E8048B00525372 /* PassengerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerInfo.h; sourceTree = "<group>"; };
+		AEB4DBDC18E8048B00525372 /* PassengerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerInfo.m; sourceTree = "<group>"; };
+		AEB4DBDE18E828A500525372 /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
+		AEB4DBDF18E828A500525372 /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
 		F30EEB8EA5DF48C7BACC160D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,27 +151,17 @@
 		AE4F17D618E3042400A7EEC1 /* train */ = {
 			isa = PBXGroup;
 			children = (
-				AE7F7D2418E55D8E00AF2222 /* DetailTableViewController.h */,
-				AE7F7D2518E55D8E00AF2222 /* DetailTableViewController.m */,
+				AE99F7BC18E5B63000B8CBCF /* controllers */,
+				AE99F7BB18E5B61900B8CBCF /* entitys */,
 				AE4F180518E38A3600A7EEC1 /* Main.storyboard */,
 				AE4F17DF18E3042400A7EEC1 /* AppDelegate.h */,
 				AE4F17E018E3042400A7EEC1 /* AppDelegate.m */,
-				AE4F17E518E3042400A7EEC1 /* ViewController.h */,
-				AE4F17E618E3042400A7EEC1 /* ViewController.m */,
 				AE4F17E818E3042400A7EEC1 /* Images.xcassets */,
 				AE4F17D718E3042400A7EEC1 /* Supporting Files */,
 				AE4F180818E396B300A7EEC1 /* SharedInstance.h */,
 				AE4F180918E396B300A7EEC1 /* SharedInstance.m */,
-				AE55F50C18E40551002AA08A /* StationTableViewController.h */,
-				AE55F50D18E40551002AA08A /* StationTableViewController.m */,
-				AE341E9F18E4761500E9F422 /* TrainTableViewController.h */,
-				AE341EA018E4761500E9F422 /* TrainTableViewController.m */,
 				AE55F50F18E40874002AA08A /* AFUtil.h */,
 				AE55F51018E40874002AA08A /* AFUtil.m */,
-				AE55F51218E410C1002AA08A /* Station.h */,
-				AE55F51318E410C1002AA08A /* Station.m */,
-				AE341EA218E4819800E9F422 /* TrainInfo.h */,
-				AE341EA318E4819800E9F422 /* TrainInfo.m */,
 			);
 			path = train;
 			sourceTree = "<group>";
@@ -191,6 +193,40 @@
 				AE4F17F818E3042400A7EEC1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE99F7BB18E5B61900B8CBCF /* entitys */ = {
+			isa = PBXGroup;
+			children = (
+				AE55F51218E410C1002AA08A /* Station.h */,
+				AE55F51318E410C1002AA08A /* Station.m */,
+				AE341EA218E4819800E9F422 /* TrainInfo.h */,
+				AE341EA318E4819800E9F422 /* TrainInfo.m */,
+				AE99F7BD18E5B67E00B8CBCF /* TrainStationInfo.h */,
+				AE99F7BE18E5B67E00B8CBCF /* TrainStationInfo.m */,
+				AEB4DBDB18E8048B00525372 /* PassengerInfo.h */,
+				AEB4DBDC18E8048B00525372 /* PassengerInfo.m */,
+			);
+			name = entitys;
+			sourceTree = "<group>";
+		};
+		AE99F7BC18E5B63000B8CBCF /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AEB4DBD818E7FBB400525372 /* PassengerTableViewController.h */,
+				AEB4DBD918E7FBB400525372 /* PassengerTableViewController.m */,
+				AE4F17E518E3042400A7EEC1 /* ViewController.h */,
+				AE4F17E618E3042400A7EEC1 /* ViewController.m */,
+				AE55F50C18E40551002AA08A /* StationTableViewController.h */,
+				AE55F50D18E40551002AA08A /* StationTableViewController.m */,
+				AE341E9F18E4761500E9F422 /* TrainTableViewController.h */,
+				AE341EA018E4761500E9F422 /* TrainTableViewController.m */,
+				AE7F7D2418E55D8E00AF2222 /* DetailTableViewController.h */,
+				AE7F7D2518E55D8E00AF2222 /* DetailTableViewController.m */,
+				AEB4DBDE18E828A500525372 /* OrderViewController.h */,
+				AEB4DBDF18E828A500525372 /* OrderViewController.m */,
+			);
+			name = controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE7F7D2618E55D8E00AF2222 /* DetailTableViewController.m in Sources */,
+				AE99F7BF18E5B67E00B8CBCF /* TrainStationInfo.m in Sources */,
 				AE55F50E18E40551002AA08A /* StationTableViewController.m in Sources */,
 				AE4F17E718E3042400A7EEC1 /* ViewController.m in Sources */,
 				AE341EA118E4761500E9F422 /* TrainTableViewController.m in Sources */,
@@ -334,7 +371,10 @@
 				AE4F17E118E3042400A7EEC1 /* AppDelegate.m in Sources */,
 				AE4F17DD18E3042400A7EEC1 /* main.m in Sources */,
 				AE55F51418E410C1002AA08A /* Station.m in Sources */,
+				AEB4DBDA18E7FBB400525372 /* PassengerTableViewController.m in Sources */,
+				AEB4DBE018E828A500525372 /* OrderViewController.m in Sources */,
 				AE4F180A18E396B300A7EEC1 /* SharedInstance.m in Sources */,
+				AEB4DBDD18E8048B00525372 /* PassengerInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +503,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "train/train-Prefix.pch";
 				INFOPLIST_FILE = "train/train-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -477,6 +518,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "train/train-Prefix.pch";
 				INFOPLIST_FILE = "train/train-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

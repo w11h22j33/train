@@ -4,17 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-ADBIndexedTableView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-JSONKit.xcscheme</key>
+		<key>Pods-Masonry.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Masonry.xcscheme</key>
+		<key>Pods-SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>20CE5258D4EC4D8F8C5220B5</key>
+		<key>24B23A0F91CE4EC48E2A92AB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2409D35135C549B6BE2CA37C</key>
+		<key>457F1B244C3B440FAFF786CF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>29911D3F7B234C5EB2073446</key>
+		<key>6898650929224A6ABFFDE687</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>81C91B84546F4981BBA6BCEB</key>
+		<key>827CE5943CAC4BAE80F183F8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A2AD77A8033642EF96172E9E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

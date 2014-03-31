@@ -12,9 +12,10 @@
 @interface SharedInstance : NSObject
 
 @property (nonatomic,strong) NSMutableDictionary* cookies;
-@property (nonatomic,strong) NSMutableDictionary* stations;
+@property (nonatomic,strong) NSMutableArray* stations;
 @property (nonatomic,strong) Station* beginStation;
 @property (nonatomic,strong) Station* endStation;
+@property (nonatomic,strong) NSString* trainDateString;
 
 + (SharedInstance*)sharedInstance;
 

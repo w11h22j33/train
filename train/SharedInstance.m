@@ -23,6 +23,7 @@
 
 @synthesize cookies,loginFlag,stations;
 @synthesize beginStation,endStation;
+@synthesize trainDateString;
 
 static SharedInstance * instance;
 
@@ -31,7 +32,7 @@ static SharedInstance * instance;
     if (instance == nil) {
         instance = [SharedInstance new];
         instance.cookies = [[NSMutableDictionary alloc] initWithCapacity:4];
-        instance.stations = [[NSMutableDictionary alloc] initWithCapacity:2048];
+        instance.stations = [[NSMutableArray alloc] initWithCapacity:2048];
     }
     
     return instance;
@@ -100,7 +101,7 @@ static SharedInstance * instance;
         return;
     }
     
-    NSMutableDictionary* stations = [SharedInstance sharedInstance].stations;
+    NSMutableArray *stations = [SharedInstance sharedInstance].stations;
     
     NSArray* array1 = [string componentsSeparatedByString:@"@"];
     
@@ -114,11 +115,19 @@ static SharedInstance * instance;
         
         Station *sat = [[Station alloc] initWithString:array];
         
-        [stations setObject:sat forKey:sat.sZHName];
+        if (nil == sat.sZHName || [@"NSNull" isEqualToString:sat.sZHName]) {
+            continue;
+        }
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:2];
+        
+        [dic setObject:sat.sFullName forKey:@"index0"];
+        
+        [dic setObject:sat forKey:@"object"];
+        
+        [stations addObject:dic];
         
     }
-    
-    NSLog(@"stations:%@",stations);
     
 }
 

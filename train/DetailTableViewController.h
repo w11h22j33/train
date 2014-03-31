@@ -12,6 +12,6 @@
 
 @interface DetailTableViewController : UITableViewController
 
-
+@property (nonatomic,strong) TrainInfo *train;
 
 @end
