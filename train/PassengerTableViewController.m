@@ -61,8 +61,9 @@
     
     NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithCapacity:4];
     
-    [parameters setObject:[[[SharedInstance sharedInstance] cookies] objectForKey:@"JSESSIONID"] forKey:@"REPEAT_SUBMIT_TOKEN"];
+    NSString* JSessionid = [SharedInstance getCookieForKey:@"JSESSIONID"];
     
+    [parameters setObject:JSessionid forKey:@"REPEAT_SUBMIT_TOKEN"];
     
     /**
      

@@ -174,9 +174,7 @@
     
     NSLog(@"getVerCode -->");
     
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    
-    NSString* JSessionid = [[[SharedInstance sharedInstance] cookies] objectForKey:@"JSESSIONID"];
+    NSString* JSessionid = [SharedInstance getCookieForKey:@"JSESSIONID"];
     
     NSString *urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/passcodeNew/getPassCodeNew;jsessionid=%@?module=login&rand=sjrand",JSessionid];
     
@@ -311,6 +309,8 @@
             
             [self.navigationController pushViewController:ptvc animated:YES];
             
+            [self doLoginConfirm];
+            
         }else{
             [self getVerCode];
         }
@@ -324,6 +324,30 @@
     }];
     
 }
+
+- (void)doLoginConfirm{
+    
+    NSLog(@"doLoginConfirm -->");
+    
+    NSString* urlString = @"https://kyfw.12306.cn/otn/login/userLogin";
+    
+    [AFUtil doPost:urlString parameters:nil responseSerializer:[AFHTTPResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"doLoginConfirm Success--->");
+        
+        NSDictionary *headers = operation.response.allHeaderFields;
+        
+        NSLog(@"Headers:%@",headers);
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Error: %@", error);
+        
+    }];
+    
+}
+
 
 #pragma mark - 选择车站回调方法
 

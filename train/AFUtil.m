@@ -37,40 +37,43 @@ BlockAddHeader addHeader = ^(AFHTTPRequestOperationManager * manager){
     [manager.requestSerializer setValue:@"Keep-Alive" forHTTPHeaderField:@"Connection"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
-    
 };
 
 BlockAddHeader addCookie =  ^(AFHTTPRequestOperationManager * manager){
     
-    NSDictionary* headers = [SharedInstance sharedInstance].cookies;
+    NSMutableArray* headers = [SharedInstance sharedInstance].cookies;
     
     if (headers) {
         
-        NSArray *keys = headers.allKeys;
+        NSMutableString* cookieString = [[NSMutableString alloc] init];
         
-        if (keys && keys.count > 0) {
+        for(NSDictionary *dic in headers){
             
-            NSMutableString* cookieString = [[NSMutableString alloc] init];
+            NSArray *keys = dic.allKeys;
             
-            for (NSString* key in keys) {
+            if (keys && keys.count > 0) {
                 
-                [cookieString appendFormat:@"%@=%@",key,[headers objectForKey:key]];
-                
-                if ([keys indexOfObject:key] < keys.count-1) {
+                for (NSString* key in keys) {
                     
-                    [cookieString appendString:@";"];
+                    [cookieString appendFormat:@"%@=%@",key,[dic objectForKey:key]];
+                    
+                    if ([headers indexOfObject:dic] < headers.count-1) {
+                        
+                        [cookieString appendString:@";"];
+                    }
+                    
+                    
                 }
                 
-                
+            }else{
+                NSLog(@"there is no cookie!!!");
             }
             
-            NSLog(@"cookieString:%@",cookieString);
-            
-            [manager.requestSerializer setValue:cookieString forHTTPHeaderField:@"Cookie"];
-            
-        }else{
-            NSLog(@"there is no cookie!!!");
         }
+        
+        NSLog(@"cookieString:%@",cookieString);
+        
+        [manager.requestSerializer setValue:cookieString forHTTPHeaderField:@"Cookie"];
         
     }else{
         NSLog(@"there is no cookie!!!");

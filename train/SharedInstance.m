@@ -31,7 +31,7 @@ static SharedInstance * instance;
     
     if (instance == nil) {
         instance = [SharedInstance new];
-        instance.cookies = [[NSMutableDictionary alloc] initWithCapacity:4];
+        instance.cookies = [[NSMutableArray alloc] initWithCapacity:8];
         instance.stations = [[NSMutableArray alloc] initWithCapacity:2048];
     }
     
@@ -45,10 +45,8 @@ static SharedInstance * instance;
     
     SharedInstance *instance = [SharedInstance sharedInstance];
     
-    [instance.cookies setObject:value forKey:key];
+    [instance.cookies addObject:[NSDictionary dictionaryWithObject:value forKey:key]];
 }
-
-
 
 + (void)addCookieFromInitResponse:(NSString *)responseString{
     
@@ -70,6 +68,7 @@ static SharedInstance * instance;
             if ([array containsObject:key]) {
                 continue;
             }else{
+                
                 [SharedInstance addCookie:value forKey:key];
             }
             
@@ -79,6 +78,19 @@ static SharedInstance * instance;
     
     NSLog(@"cookies:%@",[[SharedInstance sharedInstance] cookies]);
     
+}
+
++ (NSString *)getCookieForKey:(NSString *)key{
+    
+    NSString* value = nil;
+    
+    for (NSDictionary *dic in [[SharedInstance sharedInstance] cookies]) {
+        if ([[dic allKeys] containsObject:key]) {
+            value = [dic objectForKey:key];
+        }
+    }
+    
+    return value;
 }
 
 + (void)setLoginFlag:(BOOL)flag{
