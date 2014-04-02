@@ -11,7 +11,7 @@
 
 @interface SharedInstance : NSObject
 
-@property (nonatomic,strong) NSMutableDictionary* cookies;
+@property (nonatomic,strong) NSMutableArray* cookies;
 @property (nonatomic,strong) NSMutableArray* stations;
 @property (nonatomic,strong) Station* beginStation;
 @property (nonatomic,strong) Station* endStation;
@@ -22,6 +22,8 @@
 + (void)addCookie:(NSString*)value forKey:(NSString*)key;
 
 + (void)addCookieFromInitResponse:(NSString*)responseString;
+
++ (NSString*)getCookieForKey:(NSString*)key;
 
 + (void)setLoginFlag:(BOOL)flag;
 

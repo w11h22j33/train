@@ -245,8 +245,6 @@
     
     NSLog(@"reqGetVerCode -->");
     
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    
     NSString *urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/passcodeNew/getPassCodeNew?module=passenger&rand=randp"];
     
     [AFUtil doGet:urlString parameters:nil responseSerializer:[AFImageResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -273,8 +271,6 @@
     
     NSLog(@"reqCheckUser -->");
     
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    
     NSString *urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/login/checkUser"];
     
     [AFUtil doGet:urlString parameters:nil responseSerializer:[AFJSONResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -291,7 +287,8 @@
         
         if (flag) {
             
-            [self reqInitWc];
+            [self reqSubmitOrderRequest];
+//            [self reqInitWc];
             
         }else{
             
@@ -314,11 +311,25 @@
     
     NSLog(@"reqSubmitOrderRequest --2-->");
     
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    
-    NSString *urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/leftTicket/submitOrderRequest"];
-    
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithCapacity:8];
+    
+    [SharedInstance addCookie:@"2014-04-01" forKey:@"_jc_save_fromDate"];
+    [SharedInstance addCookie:@"北京,BJP" forKey:@"_jc_save_fromStation"];
+    [SharedInstance addCookie:@"2014-04-01" forKey:@"_jc_save_toDate"];
+    [SharedInstance addCookie:@"太原,TYV" forKey:@"_jc_save_toStation"];
+    [SharedInstance addCookie:@"wf" forKey:@"_jc_save_wfdc_flag"];
+    
+    /**
+     
+     _jc_save_fromDate	Sent	2014-04-01
+     _jc_save_fromStation	Sent	北京,BJP     
+     _jc_save_toDate	Sent	2014-04-01     
+     _jc_save_toStation	Sent	太原,TYV	     
+     _jc_save_wfdc_flag	Sent	wf
+     BIGipServerotn	1540948234.38945.0000
+     JSESSIONID	4FED3F7C3A0A1806F963D16544C62346
+     
+     **/
     
     [dic setObject:self.trainInfo.t_secretStr forKey:@"secretStr"];
     [dic setObject:[SharedInstance sharedInstance].trainDateString forKey:@"train_date"];
@@ -333,7 +344,9 @@
     
     NSLog(@"parameters:%@",dic);
     
-    [AFUtil doGet:urlString parameters:dic responseSerializer:[AFJSONResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"https://kyfw.12306.cn/otn/leftTicket/submitOrderRequest?secretStr=%@&train_date=%@&back_train_date=%@&tour_flag=dc&purpose_codes=ADULT&query_from_station_name=%@&query_to_station_name=%@",[dic objectForKey:@"secretStr"],[dic objectForKey:@"train_date"],[dic objectForKey:@"back_train_date"],[dic objectForKey:@"query_from_station_name"],[dic objectForKey:@"query_to_station_name"]];
+    
+    [AFUtil doGet:urlString parameters:nil responseSerializer:[AFJSONResponseSerializer serializer] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"Success--->");
         
@@ -368,8 +381,6 @@
 - (void)reqInitWc{
     
     NSLog(@"reqSubmitOrderRequest --2-->");
-    
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     
     NSString *urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/confirmPassenger/initWc"];
     
@@ -419,8 +430,6 @@
 - (void)reqCheckOrderInfo{
     
     NSLog(@"reqCheckOrderInfo --3-->");
-    
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     
     NSString *urlString = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/confirmPassenger/checkOrderInfo"];
     
